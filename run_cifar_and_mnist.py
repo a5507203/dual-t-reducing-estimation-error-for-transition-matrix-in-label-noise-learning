@@ -253,86 +253,86 @@ def main():
     if not args.test_acc:
         exit()
 
-    # T_noise_rate = get_noise_rate(T_estimation)
-    # DT_noise_rate = get_noise_rate(dual_T_estimation)
+    T_noise_rate = get_noise_rate(T_estimation)
+    DT_noise_rate = get_noise_rate(dual_T_estimation)
 
-    # print("++++++++++++run T-Forward+++++++++++++++++")
-    # out_dir = args.output+"/"+str(args.seed)+"/t_foward"
-    # _, _, T_forward_acc = run_forward(train_loader = train_loader, val_loader= val_loader, test_loader = test_loader, args = args, t_m = T_estimation, out_dir=out_dir,epochs=args.cl_epochs)
-    # print("T-Forward acc", T_forward_acc)
+    print("++++++++++++run T-Forward+++++++++++++++++")
+    out_dir = args.output+"/"+str(args.seed)+"/t_foward"
+    _, _, T_forward_acc = run_forward(train_loader = train_loader, val_loader= val_loader, test_loader = test_loader, args = args, t_m = T_estimation, out_dir=out_dir,epochs=args.cl_epochs)
+    print("T-Forward acc", T_forward_acc)
 
-    # print("++++++++++++run DT-Foward+++++++++++++++++")
-    # out_dir = args.output+"/"+str(args.seed)+"/dt_foward"
-    # _, _, DT_forward_acc = run_forward(train_loader = train_loader, val_loader= val_loader, test_loader = test_loader, args = args, t_m = dual_T_estimation, out_dir=out_dir,epochs=args.cl_epochs)
-    # print("DT-Forward acc", DT_forward_acc)  
+    print("++++++++++++run DT-Foward+++++++++++++++++")
+    out_dir = args.output+"/"+str(args.seed)+"/dt_foward"
+    _, _, DT_forward_acc = run_forward(train_loader = train_loader, val_loader= val_loader, test_loader = test_loader, args = args, t_m = dual_T_estimation, out_dir=out_dir,epochs=args.cl_epochs)
+    print("DT-Forward acc", DT_forward_acc)  
 
-    # print("++++++++++++run T-Revision+++++++++++++++++")
-    # _, _, reweighting_test_acc, _, _, revision_best_test_acc = run_trevision(
-    #     train_data = train_dataset, 
-    #     val_data = val_dataset, 
-    #     test_data = test_dataset, 
-    #     input_channel = args.input_channel,
-    #     True_T = np.eye(args.num_classes), 
-    #     T_hat = T_estimation, 
-    #     pretrained = False,
-    #     arch=args.arch, 
-    #     model_path = est_dir,
-    #     n_epoch=args.cl_epochs,
-    #     n_epoch_revision=args.cl_epochs,
-    #     num_classes = args.num_classes,
-    #     dataset = args.dataset,
-    #     output = args.output,
-    #     seed = args.seed,
-    #     evaluate = args.evaluate)
-    # print("T-Reweighting acc",reweighting_test_acc)
-    # print("T-Revision acc",revision_best_test_acc)
-
-
-    # print("++++++++++++run DT-Revision+++++++++++++++++")
-    # _, _, reweighting_test_acc, _, _, revision_best_test_acc = run_trevision(
-    #     train_data = train_dataset, 
-    #     val_data = val_dataset, 
-    #     test_data = test_dataset, 
-    #     input_channel = args.input_channel,
-    #     True_T = np.eye(args.num_classes), 
-    #     T_hat = dual_T_estimation, 
-    #     pretrained = False,
-    #     arch=args.arch, 
-    #     model_path = est_dir,
-    #     n_epoch=args.cl_epochs,
-    #     n_epoch_revision=args.cl_epochs,
-    #     num_classes = args.num_classes,
-    #     dataset = args.dataset,
-    #     output = args.output,
-    #     seed = args.seed,
-    #     evaluate = args.evaluate)
-    # print("DT-Reweighting acc",reweighting_test_acc)
-    # print("DT-Revision acc",revision_best_test_acc)
+    print("++++++++++++run T-Revision+++++++++++++++++")
+    _, _, reweighting_test_acc, _, _, revision_best_test_acc = run_trevision(
+        train_data = train_dataset, 
+        val_data = val_dataset, 
+        test_data = test_dataset, 
+        input_channel = args.input_channel,
+        True_T = np.eye(args.num_classes), 
+        T_hat = T_estimation, 
+        pretrained = False,
+        arch=args.arch, 
+        model_path = est_dir,
+        n_epoch=args.cl_epochs,
+        n_epoch_revision=args.cl_epochs,
+        num_classes = args.num_classes,
+        dataset = args.dataset,
+        output = args.output,
+        seed = args.seed,
+        evaluate = args.evaluate)
+    print("T-Reweighting acc",reweighting_test_acc)
+    print("T-Revision acc",revision_best_test_acc)
 
 
-    # print("++++++++++++run T-MentorNet+++++++++++++++++")
-    # T_mentornet_acc = run_mentoring(train_val_dataset, test_dataset, T_noise_rate, input_channel=args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
-    # print("T-MentorNet acc", T_mentornet_acc)
+    print("++++++++++++run DT-Revision+++++++++++++++++")
+    _, _, reweighting_test_acc, _, _, revision_best_test_acc = run_trevision(
+        train_data = train_dataset, 
+        val_data = val_dataset, 
+        test_data = test_dataset, 
+        input_channel = args.input_channel,
+        True_T = np.eye(args.num_classes), 
+        T_hat = dual_T_estimation, 
+        pretrained = False,
+        arch=args.arch, 
+        model_path = est_dir,
+        n_epoch=args.cl_epochs,
+        n_epoch_revision=args.cl_epochs,
+        num_classes = args.num_classes,
+        dataset = args.dataset,
+        output = args.output,
+        seed = args.seed,
+        evaluate = args.evaluate)
+    print("DT-Reweighting acc",reweighting_test_acc)
+    print("DT-Revision acc",revision_best_test_acc)
 
-    # print("++++++++++++run DT-MentorNet+++++++++++++++++")
-    # DT_mentornet_acc = run_mentoring(train_val_dataset, test_dataset, DT_noise_rate, input_channel=args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
-    # print("DT-MentorNet acc", DT_mentornet_acc)
 
-    # print("++++++++++++run Decoupling+++++++++++++++++") 
-    # decoupling_acc = run_decoupling(train_val_dataset, test_dataset, T_noise_rate, input_channel = args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
-    # print("Decoupling acc", decoupling_acc)
+    print("++++++++++++run T-MentorNet+++++++++++++++++")
+    T_mentornet_acc = run_mentoring(train_val_dataset, test_dataset, T_noise_rate, input_channel=args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
+    print("T-MentorNet acc", T_mentornet_acc)
 
-    # print("++++++++++++run Mixup+++++++++++++++++") 
-    # mixup_acc = run_mixup(train_val_dataset, test_dataset, num_classes = args.num_classes, input_channel=args.input_channel,  arch=args.arch, pretrained=False, n_epoch = args.cl_epochs)
-    # print("Mixup acc", mixup_acc)
+    print("++++++++++++run DT-MentorNet+++++++++++++++++")
+    DT_mentornet_acc = run_mentoring(train_val_dataset, test_dataset, DT_noise_rate, input_channel=args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
+    print("DT-MentorNet acc", DT_mentornet_acc)
 
-    # print("++++++++++++run T-Coteaching+++++++++++++++++") 
-    # T_coteaching_acc = run_coteaching(train_val_dataset, test_dataset, T_noise_rate, input_channel = args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
-    # print("T-Coteaching acc", T_coteaching_acc)   
+    print("++++++++++++run Decoupling+++++++++++++++++") 
+    decoupling_acc = run_decoupling(train_val_dataset, test_dataset, T_noise_rate, input_channel = args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
+    print("Decoupling acc", decoupling_acc)
 
-    # print("++++++++++++run DT-Coteaching+++++++++++++++++")
-    # DT_coteaching_acc = run_coteaching(train_val_dataset,test_dataset, DT_noise_rate, input_channel = args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
-    # print("DT-Coteaching acc", DT_coteaching_acc)
+    print("++++++++++++run Mixup+++++++++++++++++") 
+    mixup_acc = run_mixup(train_val_dataset, test_dataset, num_classes = args.num_classes, input_channel=args.input_channel,  arch=args.arch, pretrained=False, n_epoch = args.cl_epochs)
+    print("Mixup acc", mixup_acc)
+
+    print("++++++++++++run T-Coteaching+++++++++++++++++") 
+    T_coteaching_acc = run_coteaching(train_val_dataset, test_dataset, T_noise_rate, input_channel = args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
+    print("T-Coteaching acc", T_coteaching_acc)   
+
+    print("++++++++++++run DT-Coteaching+++++++++++++++++")
+    DT_coteaching_acc = run_coteaching(train_val_dataset,test_dataset, DT_noise_rate, input_channel = args.input_channel, arch=args.arch, pretrained=False, num_classes = args.num_classes, n_epoch = args.cl_epochs)
+    print("DT-Coteaching acc", DT_coteaching_acc)
 
 
 
